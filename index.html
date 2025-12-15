@@ -95,14 +95,11 @@
     }
 
     .hk-photo{
-      margin: 0 14px;
+      margin: 0 24px;
       border-radius: 10px;
       overflow:hidden;
       border: 1px solid rgba(0,0,0,.18);
-      background:
-        radial-gradient(700px 450px at 50% 20%, rgba(255,255,255,.18), transparent 60%),
-        linear-gradient(135deg, rgba(24,76,138,.85), rgba(0,0,0,.55)),
-        radial-gradient(900px 650px at 60% 70%, rgba(198,53,42,.35), transparent 60%);
+      background-color: #fff;
       height: 44vh;
       min-height: 260px;
       max-height: 420px;
@@ -112,9 +109,7 @@
     .hk-photo::after{
       content:"";
       position:absolute; inset:-20px;
-      background:
-        repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 2px, transparent 2px 10px),
-        repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0 1px, transparent 1px 7px);
+      background-color: #fff;
       mix-blend-mode: overlay;
       opacity:.35;
       pointer-events:none;
@@ -123,7 +118,7 @@
     /* ✅ 疊印圖片（取代原本 hk-overprint 文字） */
     .hk-overprint-img{
       position:absolute;
-      left: 46px;
+      
 
       width: 100%;
       max-width: 400px;
@@ -232,10 +227,10 @@
     <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
       <div>
         <div class="fw-black text-uppercase" style="letter-spacing:.18em; color: rgba(24,76,138,.85); font-weight:900; font-size:12px;">
-          NEON TREASURE MAP
+          HAHAHA B Day MAP
         </div>
         <div class="muted" style="font-size:12px;" id="subtitle">
-          香港拼貼海報風｜5頁互動｜依序解鎖線索
+          不讓您好過的生日尋寶｜5頁微微互動｜依序解鎖線索
         </div>
       </div>
       <div class="hk-tag" id="stepText">0 / 4</div>
@@ -250,7 +245,7 @@
             <div class="v-english">Happy B Day</div>
 
             <div class="flex-grow-1">
-              <div class="hk-title">香港首家</div>
+              <div class="hk-title">三十倒立</div>
               <div class="d-flex justify-content-between align-items-center mt-2">
                 <div class="text-uppercase" style="letter-spacing:.18em; color:rgba(24,76,138,.70); font-weight:900; font-size:12px;">
                   HI!Y / MAP
@@ -270,7 +265,7 @@
           </div>
 
           <div class="hk-address">
-            address: Shop 408, 4L, Phase I, New Town Plaza, Sha Tin
+            溫馨提醒：小心別撞到頭嘿～
           </div>
         </div>
 
@@ -455,7 +450,7 @@
       age: 30,             // ← 如果不是 30 改這裡
 
       intro:
-`你找到了一張不需要移動的藏寶圖。
+`你找到了一張不需要移動的藏寶圖（抱歉我沒更好的用詞了）。
 
 它不在地上，不在抽屜裡，
 而是在你每天經過、卻不一定會注意的地方。
@@ -472,12 +467,12 @@
 視線正下方的地方。`,
 
       clue2:
-`有些東西不是越快越好，
-而是當你放慢的時候，
-才會發現它一直都在。
+`恭喜你沒有迷路，
+但迷路這件事感覺不會發生在你身上～。
 
 找找看：
-那個讓你願意停下來看的畫面。`,
+那個讓你願意即使很忙很躁也要冒著股盆前傾風險翹腳上班，膝蓋還會頂到的地方。
+（不是頂到肺！！！謝謝）`,
 
       clue3:
 `真正的寶藏
