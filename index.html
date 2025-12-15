@@ -100,7 +100,7 @@
       overflow:hidden;
       border: 1px solid rgba(0,0,0,.18);
       background-color: #fff;
-      height: 44vh;
+      height: 20vh;
       min-height: 260px;
       max-height: 420px;
       position:relative;
@@ -122,9 +122,10 @@
     /* ✅ 疊印圖片（取代原本 hk-overprint 文字） */
     .hk-overprint-img{
       position:absolute;
-      top: 0;
-      left: 0;
-      z-index: 2;    
+      top: 50%;
+      left: 50%;
+      z-index: 2;
+      transform: translate(-50%, -50%);
       
 
       width: 100%;
