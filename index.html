@@ -74,7 +74,7 @@
     }
 
     .hk-header{
-      padding: 14px 14px 10px;
+      padding: 24px;
       display:flex;
       gap:12px;
       align-items:flex-start;
@@ -123,14 +123,13 @@
     /* ✅ 疊印圖片（取代原本 hk-overprint 文字） */
     .hk-overprint-img{
       position:absolute;
-      right: -10px;
-      top: 12px;
+      left: 46px;
 
-      width: 42%;
-      max-width: 210px;
+      width: 100%;
+      max-width: 400px;
       height: auto;
 
-      opacity: .42;                 /* 0.25~0.55 可調 */
+      background-color: #fff;
       mix-blend-mode: multiply;     /* 印刷疊色感 */
       filter: saturate(.95) contrast(1.05);
 
@@ -139,21 +138,21 @@
     }
 
     .hk-body{
-      padding: 12px 14px 6px;
+      padding: 0 24px;
       color: rgba(10,36,68,.88);
       line-height:1.75;
-      font-size: 14px;
+      font-size: 16px;
       white-space: pre-line;
     }
 
     .hk-body .leadline{
       font-weight:900;
       color: rgba(10,36,68,.92);
-      margin-bottom: 6px;
+      
     }
 
     .hk-address{
-      margin: 12px 14px 14px;
+      margin: 24px;
       padding: 12px 12px;
       border-radius: 12px;
       border: 1px solid rgba(24,76,138,.18);
@@ -248,7 +247,7 @@
       <section class="page active" data-page="intro">
         <div class="hk-poster" id="poster1">
           <div class="hk-header">
-            <div class="v-english">HEY HONG KONG</div>
+            <div class="v-english">Happy B Day</div>
 
             <div class="flex-grow-1">
               <div class="hk-title">香港首家</div>
@@ -284,7 +283,7 @@
       <section class="page" data-page="clue1">
         <div class="hk-poster" id="poster2">
           <div class="hk-header">
-            <div class="v-english">HEY HONG KONG</div>
+            <div class="v-english">Happy B Day</div>
 
             <div class="flex-grow-1">
               <div class="hk-title">第一線索</div>
@@ -321,7 +320,7 @@
       <section class="page" data-page="clue2">
         <div class="hk-poster" id="poster3">
           <div class="hk-header">
-            <div class="v-english">HEY HONG KONG</div>
+            <div class="v-english">Happy B Day</div>
 
             <div class="flex-grow-1">
               <div class="hk-title">第二線索</div>
@@ -358,7 +357,7 @@
       <section class="page" data-page="clue3">
         <div class="hk-poster" id="poster4">
           <div class="hk-header">
-            <div class="v-english">HEY HONG KONG</div>
+            <div class="v-english">Happy B Day</div>
 
             <div class="flex-grow-1">
               <div class="hk-title">第三線索</div>
@@ -395,7 +394,7 @@
       <section class="page" data-page="final">
         <div class="hk-poster" id="poster5">
           <div class="hk-header">
-            <div class="v-english">HEY HONG KONG</div>
+            <div class="v-english">Happy B Day</div>
 
             <div class="flex-grow-1">
               <div class="hk-title">終點</div>
