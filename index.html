@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>霓虹藏寶圖</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --paper:#f5f6f2;
+      --paper2:#eef0ea;
+      --ink:#0a2444;
+      --blue:#184c8a;      /* 海報藍 */
+      --red:#c6352a;       /* 海報紅 */
+      --muted:#42566f;
+      --shadow: 0 18px 60px rgba(0,0,0,.22);
+      --safeTop: env(safe-area-inset-top);
+      --safeBot: env(safe-area-inset-bottom);
+    }
+
+    body{
+      min-height:100vh;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(0,0,0,.04), transparent 60%),
+        radial-gradient(900px 600px at 80% 30%, rgba(0,0,0,.03), transparent 60%),
+        linear-gradient(0deg, rgba(24,76,138,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24,76,138,.08) 1px, transparent 1px),
+        linear-gradient(180deg, var(--paper), var(--paper2));
+      background-size: auto, auto, 18px 18px, 18px 18px, auto;
+      overflow-x:hidden;
+    }
+
+    .hk-title{
+      font-weight:900;
+      letter-spacing:.06em;
+      color:var(--blue);
+      line-height:1.02;
+      font-size: clamp(34px, 8.6vw, 46px);
+      text-shadow: 0 2px 0 rgba(255,255,255,.65);
+    }
+
+    .muted{ color: rgba(10,36,68,.70); }
+
+    .v-english{
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-weight:800;
+      letter-spacing:.22em;
+      color:var(--blue);
+      opacity:.92;
+      font-size:12px;
+      user-select:none;
+    }
+
+    .hk-poster{
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(24,76,138,.25);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hk-poster::before{
+      content:"";
+      position:absolute; inset:10px;
+      border: 2px solid rgba(24,76,138,.16);
+      border-radius: 14px;
+      pointer-events:none;
+    }
+
+    .hk-header{
+      padding: 14px 14px 10px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+
+    .hk-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(24,76,138,.25);
+      background: rgba(255,255,255,.6);
+      color:var(--blue);
+      font-size:12px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .hk-photo{
+      margin: 0 14px;
+      border-radius: 10px;
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.18);
+      background:
+        radial-gradient(700px 450px at 50% 20%, rgba(255,255,255,.18), transparent 60%),
+        linear-gradient(135deg, rgba(24,76,138,.85), rgba(0,0,0,.55)),
+        radial-gradient(900px 650px at 60% 70%, rgba(198,53,42,.35), transparent 60%);
+      height: 44vh;
+      min-height: 260px;
+      max-height: 420px;
+      position:relative;
+    }
+
+    .hk-photo::after{
+      content:"";
+      position:absolute; inset:-20px;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 2px, transparent 2px 10px),
+        repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0 1px, transparent 1px 7px);
+      mix-blend-mode: overlay;
+      opacity:.35;
+      pointer-events:none;
+    }
+
+    /* ✅ 疊印圖片（取代原本 hk-overprint 文字） */
+    .hk-overprint-img{
+      position:absolute;
+      right: -10px;
+      top: 12px;
+
+      width: 42%;
+      max-width: 210px;
+      height: auto;
+
+      opacity: .42;                 /* 0.25~0.55 可調 */
+      mix-blend-mode: multiply;     /* 印刷疊色感 */
+      filter: saturate(.95) contrast(1.05);
+
+      user-select:none;
+      pointer-events:none;
+    }
+
+    .hk-body{
+      padding: 12px 14px 6px;
+      color: rgba(10,36,68,.88);
+      line-height:1.75;
+      font-size: 14px;
+      white-space: pre-line;
+    }
+
+    .hk-body .leadline{
+      font-weight:900;
+      color: rgba(10,36,68,.92);
+      margin-bottom: 6px;
+    }
+
+    .hk-address{
+      margin: 12px 14px 14px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(24,76,138,.18);
+      background:
+        linear-gradient(90deg,
+          rgba(24,76,138,.12) 0 10%,
+          rgba(198,53,42,.10) 10% 20%,
+          rgba(24,76,138,.12) 20% 30%,
+          rgba(198,53,42,.10) 30% 40%,
+          rgba(24,76,138,.12) 40% 50%,
+          rgba(198,53,42,.10) 50% 60%,
+          rgba(24,76,138,.12) 60% 70%,
+          rgba(198,53,42,.10) 70% 80%,
+          rgba(24,76,138,.12) 80% 90%,
+          rgba(198,53,42,.10) 90% 100%
+        );
+      color: rgba(24,76,138,.95);
+      font-weight:900;
+      letter-spacing:.04em;
+      font-size: clamp(14px, 3.8vw, 20px);
+    }
+
+    .btn-hk{
+      border-radius: 14px !important;
+      border: 1px solid rgba(24,76,138,.28) !important;
+      background: rgba(255,255,255,.72) !important;
+      color: var(--blue) !important;
+      font-weight:900 !important;
+      box-shadow: 0 12px 26px rgba(0,0,0,.10);
+    }
+    .btn-hk:active{ transform: scale(.99); }
+
+    .btn-hk-outline{
+      border-radius: 14px !important;
+      border: 1px solid rgba(24,76,138,.28) !important;
+      background: rgba(255,255,255,.0) !important;
+      color: rgba(24,76,138,.95) !important;
+      font-weight:900 !important;
+    }
+
+    .page{ display:none; animation: fadeUp .25s ease both; }
+    .page.active{ display:block; }
+    @keyframes fadeUp{
+      from{ opacity:0; transform: translateY(8px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+
+    .dock{
+      position: sticky;
+      bottom: 0;
+      padding-bottom: calc(12px + var(--safeBot));
+      background: rgba(245,246,242,.82);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(24,76,138,.18);
+      z-index: 10;
+    }
+
+    .progress{
+      height: 12px;
+      background: rgba(24,76,138,.10);
+      border: 1px solid rgba(24,76,138,.18);
+      border-radius: 999px;
+      overflow:hidden;
+    }
+    .progress-bar{
+      background: linear-gradient(90deg, rgba(24,76,138,.95), rgba(198,53,42,.85));
+    }
+
+    .outage *{ filter: grayscale(.12) brightness(.88); }
+    .outage .hk-photo::after{ opacity:.18; }
+  </style>
+</head>
+
+<body>
+  <div class="container pt-3" style="padding-top: calc(12px + var(--safeTop));">
+
+    <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+      <div>
+        <div class="fw-black text-uppercase" style="letter-spacing:.18em; color: rgba(24,76,138,.85); font-weight:900; font-size:12px;">
+          NEON TREASURE MAP
+        </div>
+        <div class="muted" style="font-size:12px;" id="subtitle">
+          香港拼貼海報風｜5頁互動｜依序解鎖線索
+        </div>
+      </div>
+      <div class="hk-tag" id="stepText">0 / 4</div>
+    </div>
+
+    <div id="pages">
+
+      <!-- Page 1 -->
+      <section class="page active" data-page="intro">
+        <div class="hk-poster" id="poster1">
+          <div class="hk-header">
+            <div class="v-english">HEY HONG KONG</div>
+
+            <div class="flex-grow-1">
+              <div class="hk-title">香港首家</div>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="text-uppercase" style="letter-spacing:.18em; color:rgba(24,76,138,.70); font-weight:900; font-size:12px;">
+                  HI!Y / MAP
+                </div>
+                <div class="hk-tag">PAGE 1 / 5</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hk-photo">
+            <img class="hk-overprint-img" src="assets/overlay-1.png" alt="">
+          </div>
+
+          <div class="hk-body">
+            <div class="leadline">開場白</div>
+            <div id="introText"></div>
+          </div>
+
+          <div class="hk-address">
+            address: Shop 408, 4L, Phase I, New Town Plaza, Sha Tin
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <button class="btn btn-hk w-100 py-3" id="startBtn">開始尋找 →</button>
+        </div>
+      </section>
+
+      <!-- Page 2 -->
+      <section class="page" data-page="clue1">
+        <div class="hk-poster" id="poster2">
+          <div class="hk-header">
+            <div class="v-english">HEY HONG KONG</div>
+
+            <div class="flex-grow-1">
+              <div class="hk-title">第一線索</div>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="text-uppercase" style="letter-spacing:.18em; color:rgba(24,76,138,.70); font-weight:900; font-size:12px;">
+                  MONEY EXCHANGE / CLUE 01
+                </div>
+                <div class="hk-tag">PAGE 2 / 5</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hk-photo">
+            <img class="hk-overprint-img" src="assets/overlay-2.png" alt="">
+          </div>
+
+          <div class="hk-body">
+            <div class="leadline">關於「位置」</div>
+            <div id="clue1Text"></div>
+          </div>
+
+          <div class="hk-address">
+            address: look down / under your daily view
+          </div>
+        </div>
+
+        <div class="mt-3 d-grid gap-2">
+          <button class="btn btn-hk py-3" id="found1Btn">我找到了 ✓</button>
+          <button class="btn btn-hk-outline py-2" id="backToIntroBtn">← 回開場</button>
+        </div>
+      </section>
+
+      <!-- Page 3 -->
+      <section class="page" data-page="clue2">
+        <div class="hk-poster" id="poster3">
+          <div class="hk-header">
+            <div class="v-english">HEY HONG KONG</div>
+
+            <div class="flex-grow-1">
+              <div class="hk-title">第二線索</div>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="text-uppercase" style="letter-spacing:.18em; color:rgba(24,76,138,.70); font-weight:900; font-size:12px;">
+                  TEA RESTAURANT / CLUE 02
+                </div>
+                <div class="hk-tag">PAGE 3 / 5</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hk-photo">
+            <img class="hk-overprint-img" src="assets/overlay-3.png" alt="">
+          </div>
+
+          <div class="hk-body">
+            <div class="leadline">關於「速度」</div>
+            <div id="clue2Text"></div>
+          </div>
+
+          <div class="hk-address">
+            address: slow down / then you’ll see
+          </div>
+        </div>
+
+        <div class="mt-3 d-grid gap-2">
+          <button class="btn btn-hk py-3" id="found2Btn">我找到了 ✓</button>
+          <button class="btn btn-hk-outline py-2" id="back1Btn">← 回線索一</button>
+        </div>
+      </section>
+
+      <!-- Page 4 -->
+      <section class="page" data-page="clue3">
+        <div class="hk-poster" id="poster4">
+          <div class="hk-header">
+            <div class="v-english">HEY HONG KONG</div>
+
+            <div class="flex-grow-1">
+              <div class="hk-title">第三線索</div>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="text-uppercase" style="letter-spacing:.18em; color:rgba(24,76,138,.70); font-weight:900; font-size:12px;">
+                  NEON SIGN / CLUE 03
+                </div>
+                <div class="hk-tag">PAGE 4 / 5</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hk-photo">
+            <img class="hk-overprint-img" src="assets/overlay-4.png" alt="">
+          </div>
+
+          <div class="hk-body">
+            <div class="leadline">關於「觀察」</div>
+            <div id="clue3Text"></div>
+          </div>
+
+          <div class="hk-address">
+            address: look again / one more glance
+          </div>
+        </div>
+
+        <div class="mt-3 d-grid gap-2">
+          <button class="btn btn-hk py-3" id="found3Btn">我找到了 ✓</button>
+          <button class="btn btn-hk-outline py-2" id="back2Btn">← 回線索二</button>
+        </div>
+      </section>
+
+      <!-- Page 5 -->
+      <section class="page" data-page="final">
+        <div class="hk-poster" id="poster5">
+          <div class="hk-header">
+            <div class="v-english">HEY HONG KONG</div>
+
+            <div class="flex-grow-1">
+              <div class="hk-title">終點</div>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="text-uppercase" style="letter-spacing:.18em; color:rgba(24,76,138,.70); font-weight:900; font-size:12px;">
+                  HAPPY BIRTHDAY / FINAL
+                </div>
+                <div class="hk-tag">PAGE 5 / 5</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hk-photo">
+            <img class="hk-overprint-img" src="assets/overlay-5.png" alt="">
+          </div>
+
+          <div class="hk-body">
+            <div class="leadline">🎂 生日快樂</div>
+            <div id="finalText"></div>
+          </div>
+
+          <div class="hk-address">
+            address: keep this page / keep this wish
+          </div>
+        </div>
+
+        <div class="mt-3 d-grid gap-2">
+          <button class="btn btn-hk py-3" id="resetBtn">重玩一次（重置進度）</button>
+          <button class="btn btn-hk-outline py-2" id="shareHintBtn">複製祝福文字</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="dock mt-3">
+    <div class="container py-3">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="muted" style="font-size:12px;" id="progressLabel">進度</div>
+        <div class="muted" style="font-size:12px;" id="progressPct">0%</div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" id="bar" style="width:0%"></div>
+      </div>
+      <div class="mt-2 d-flex justify-content-between">
+        <div class="muted" style="font-size:12px;">提示：進度會記住（同一台手機）</div>
+        <div class="muted" style="font-size:12px;">長按海報：停電模式</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ====== 你只要改這裡（文字/名字/年齡） ======
+    const CONFIG = {
+      personName: "你",    // ← 改成朋友名字/暱稱
+      age: 30,             // ← 如果不是 30 改這裡
+
+      intro:
+`你找到了一張不需要移動的藏寶圖。
+
+它不在地上，不在抽屜裡，
+而是在你每天經過、卻不一定會注意的地方。
+
+這份寶藏需要三個線索，
+不用快，只要仔細。`,
+
+      clue1:
+`抬頭找不到的，
+有時候就在你低頭時出現。
+
+試著看看：
+你每天工作時，
+視線正下方的地方。`,
+
+      clue2:
+`有些東西不是越快越好，
+而是當你放慢的時候，
+才會發現它一直都在。
+
+找找看：
+那個讓你願意停下來看的畫面。`,
+
+      clue3:
+`真正的寶藏
+往往不是藏得最深，
+而是需要多看一眼。
+
+如果你已經看到它了，
+那你準備好打開最後一頁了。`,
+
+      final: (name, age) =>
+`${age} 歲生日快樂，${name}。
+
+${age} 不是一個需要急著證明什麼的年紀，
+而是一個已經知道自己在往哪裡走的階段。
+
+希望你未來的日子裡
+有足夠的好奇心，
+也有隨時停下來看一眼的能力。
+
+願你在忙碌的時候記得抬頭，
+在順利的時候記得低頭看看，
+那些一直陪著你的風景。
+
+生日快樂。`
+    };
+
+    (function(){
+      const $ = (sel) => document.querySelector(sel);
+      const pages = [...document.querySelectorAll(".page")];
+
+      $("#introText").textContent = CONFIG.intro;
+      $("#clue1Text").textContent = CONFIG.clue1;
+      $("#clue2Text").textContent = CONFIG.clue2;
+      $("#clue3Text").textContent = CONFIG.clue3;
+      $("#finalText").textContent = CONFIG.final(CONFIG.personName, CONFIG.age);
+
+      const stepText = $("#stepText");
+      const progressPct = $("#progressPct");
+      const bar = $("#bar");
+      const progressLabel = $("#progressLabel");
+
+      const STORAGE_KEY = "hk_neon_treasure_step_v2";
+      let state = { step: 0 };
+
+      const load = () => {
+        try{
+          const v = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+          if (typeof v.step === "number") state.step = Math.max(0, Math.min(4, v.step));
+        }catch{}
+      };
+      const save = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+      const vibrate = (p) => { if (navigator.vibrate) navigator.vibrate(p); };
+
+      const showPage = (name) => {
+        pages.forEach(p => p.classList.toggle("active", p.dataset.page === name));
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      const stepToPage = (step) => {
+        if (step <= 0) return "intro";
+        if (step === 1) return "clue1";
+        if (step === 2) return "clue2";
+        if (step === 3) return "clue3";
+        return "final";
+      };
+
+      const updateProgress = () => {
+        const pct = Math.round((state.step / 4) * 100);
+        bar.style.width = pct + "%";
+        progressPct.textContent = pct + "%";
+        progressLabel.textContent = pct === 100 ? "完成" : "進度";
+        stepText.textContent = `${state.step} / 4`;
+      };
+
+      const goStep = (step) => {
+        state.step = Math.max(0, Math.min(4, step));
+        save();
+        updateProgress();
+        showPage(stepToPage(state.step));
+      };
+
+      $("#startBtn").addEventListener("click", () => { vibrate(12); goStep(1); });
+      $("#found1Btn").addEventListener("click", () => { vibrate([10,30,10]); goStep(2); });
+      $("#found2Btn").addEventListener("click", () => { vibrate([10,30,10]); goStep(3); });
+      $("#found3Btn").addEventListener("click", () => { vibrate([10,30,10]); goStep(4); });
+
+      $("#backToIntroBtn").addEventListener("click", () => { vibrate(8); goStep(0); });
+      $("#back1Btn").addEventListener("click", () => { vibrate(8); goStep(1); });
+      $("#back2Btn").addEventListener("click", () => { vibrate(8); goStep(2); });
+
+      $("#resetBtn").addEventListener("click", () => {
+        if (!confirm("確定要重置進度，重新尋寶嗎？")) return;
+        vibrate(20);
+        goStep(0);
+      });
+
+      $("#shareHintBtn").addEventListener("click", async () => {
+        const text = $("#finalText").textContent || "";
+        try{
+          await navigator.clipboard.writeText(text);
+          vibrate(15);
+          alert("祝福文字已複製 ✓");
+        }catch{
+          alert("無法自動複製，請手動選取複製。");
+        }
+      });
+
+      // long press poster to toggle outage mode
+      let pressTimer = null;
+      const toggleOutage = () => {
+        document.documentElement.classList.toggle("outage");
+        vibrate([20, 40, 20]);
+      };
+
+      document.querySelectorAll(".hk-poster").forEach(card => {
+        card.addEventListener("touchstart", () => {
+          pressTimer = setTimeout(toggleOutage, 520);
+        }, {passive:true});
+        card.addEventListener("touchend", () => {
+          if (pressTimer) clearTimeout(pressTimer);
+          pressTimer = null;
+        }, {passive:true});
+        card.addEventListener("touchmove", () => {
+          if (pressTimer) clearTimeout(pressTimer);
+          pressTimer = null;
+        }, {passive:true});
+      });
+
+      load();
+      updateProgress();
+      showPage(stepToPage(state.step));
+    })();
+  </script>
+</body>
+</html>
