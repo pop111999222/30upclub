@@ -104,6 +104,7 @@
       min-height: 260px;
       max-height: 420px;
       position:relative;
+      isolation:isolate;
     }
 
     .hk-photo::after{
@@ -113,18 +114,23 @@
       mix-blend-mode: overlay;
       opacity:.35;
       pointer-events:none;
+      z-index: 1;
+  background-color: transparent;
     }
 
     /* ✅ 疊印圖片（取代原本 hk-overprint 文字） */
     .hk-overprint-img{
       position:absolute;
-      
+      top: 0;
+      left: 0;
+      z-index: 2;    
+      opacity: .9;
 
       width: 100%;
       max-width: 400px;
       height: auto;
 
-      background-color: #fff;
+      
       mix-blend-mode: multiply;     /* 印刷疊色感 */
       filter: saturate(.95) contrast(1.05);
 
