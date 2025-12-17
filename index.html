@@ -267,7 +267,7 @@
         </div>
 
         <div class="mt-3">
-          <button class="btn btn-hk w-100 py-3" id="startBtn">開始尋找 →</button>
+          <button class="btn btn-hk w-100 py-3" id="startBtn">開始尋找 👉</button>
         </div>
       </section>
 
@@ -280,7 +280,7 @@
               <div class="hk-title">第一線索</div>
               <div class="d-flex justify-content-between align-items-center mt-2">
                 <div class="text-uppercase" style="letter-spacing:.18em; color:rgba(24,76,138,.70); font-weight:900; font-size:12px;">
-                  MONEY EXCHANGE / CLUE 01
+                  以下提示 / CLUE 01
                 </div>
                 <div class="hk-tag">PAGE 2 / 5</div>
               </div>
@@ -292,7 +292,7 @@
           </div>
 
           <div class="hk-body">
-            <div class="leadline">關於「位置」</div>
+            <div class="leadline">關於「位置」📍</div>
             <div id="clue1Text"></div>
           </div>
 
@@ -302,8 +302,8 @@
         </div>
 
         <div class="mt-3 d-grid gap-2">
-          <button class="btn btn-hk py-3" id="found1Btn">我找到了 ✓</button>
-          <button class="btn btn-hk-outline py-2" id="backToIntroBtn">← 回開場</button>
+          <button class="btn btn-hk py-3" id="found1Btn">下一步 👉</button>
+          <button class="btn btn-hk-outline py-2" id="backToIntroBtn">👈 回開場</button>
         </div>
       </section>
 
@@ -317,7 +317,7 @@
               <div class="hk-title">第二線索</div>
               <div class="d-flex justify-content-between align-items-center mt-2">
                 <div class="text-uppercase" style="letter-spacing:.18em; color:rgba(24,76,138,.70); font-weight:900; font-size:12px;">
-                  TEA RESTAURANT / CLUE 02
+                  以下提示 / CLUE 02
                 </div>
                 <div class="hk-tag">PAGE 3 / 5</div>
               </div>
@@ -329,7 +329,7 @@
           </div>
 
           <div class="hk-body">
-            <div class="leadline">關於「速度」</div>
+            <div class="leadline">關於「方向」➡️</div>
             <div id="clue2Text"></div>
           </div>
 
@@ -339,8 +339,8 @@
         </div>
 
         <div class="mt-3 d-grid gap-2">
-          <button class="btn btn-hk py-3" id="found2Btn">我找到了 ✓</button>
-          <button class="btn btn-hk-outline py-2" id="back1Btn">← 回線索一</button>
+          <button class="btn btn-hk py-3" id="found2Btn">下一步 👉</button>
+          <button class="btn btn-hk-outline py-2" id="back1Btn">👈 回線索一</button>
         </div>
       </section>
 
@@ -354,7 +354,7 @@
               <div class="hk-title">第三線索</div>
               <div class="d-flex justify-content-between align-items-center mt-2">
                 <div class="text-uppercase" style="letter-spacing:.18em; color:rgba(24,76,138,.70); font-weight:900; font-size:12px;">
-                  NEON SIGN / CLUE 03
+                  以下提示 / CLUE 03
                 </div>
                 <div class="hk-tag">PAGE 4 / 5</div>
               </div>
@@ -366,7 +366,7 @@
           </div>
 
           <div class="hk-body">
-            <div class="leadline">關於「觀察」</div>
+            <div class="leadline">關於「觀察」👀</div>
             <div id="clue3Text"></div>
           </div>
 
@@ -376,8 +376,8 @@
         </div>
 
         <div class="mt-3 d-grid gap-2">
-          <button class="btn btn-hk py-3" id="found3Btn">我找到了 ✓</button>
-          <button class="btn btn-hk-outline py-2" id="back2Btn">← 回線索二</button>
+          <button class="btn btn-hk py-3" id="found3Btn">下一步 👉</button>
+          <button class="btn btn-hk-outline py-2" id="back2Btn">👈 回線索二</button>
         </div>
       </section>
 
@@ -403,7 +403,7 @@
           </div>
 
           <div class="hk-body">
-            <div class="leadline">🎂 生日快樂</div>
+            <div class="leadline">🎉恭喜您找到🎉</div>
             <div id="finalText"></div>
           </div>
 
@@ -414,7 +414,7 @@
 
         <div class="mt-3 d-grid gap-2">
           <button class="btn btn-hk py-3" id="resetBtn">重玩一次（重置進度）</button>
-          <button class="btn btn-hk-outline py-2" id="shareHintBtn">複製祝福文字</button>
+      
         </div>
       </section>
 
@@ -464,13 +464,13 @@
 
 找找看：
 那個讓你願意即使很忙很躁也要冒著股盆前傾風險翹腳上班，膝蓋還會頂到的地方。
-（不是頂到肺！！！謝謝）`,
+（不是頂到肺！也不是頂人！更不是頂球！謝謝）`,
 
       clue3:
 `找到了沒~壽星
 
 如果你已經看到它了，那你準備好打開最後一頁了。
-找不到請詢問您座位右手邊工作人員或請洽設計組方仙女。`,
+找不到請詢問您座位右手邊"萱"或請洽設計組"方仙女"。`,
 
       final: (name, age) =>
 `${age} 歲生日快樂，${name}。
@@ -484,8 +484,10 @@ Hmmm 其實我文筆不好確實寫不出什麼像樣漂漂的祝福
 也謝謝你一直以來接住我隨機不定時畫出來的小圖，原本只是要鬧你貼個便條在你筆電上，想說隔天應該是會被白眼轉移垃圾桶之類的，沒想到居然收下（阿姨粉感動）
 
 最後感謝你陪我玩這遊戲，第一次把這想法做出來實際操作，請多見諒，雖然是用 Ai 產 code 的我只負責修改樣式......啦
-然後希望你會喜歡你找到的......嗯"寶藏"(請救救我中文詞彙量)，期待可以在我有生之年成名讓你能拿去變現，我要分一杯羹(開玩笑的~)
-生日快樂。`
+然後希望你會喜歡你找到的......嗯"寶藏 ? 禮物 ?"(請救救我中文詞彙量)，期待可以在我有生之年成名讓你能拿去變現，我要分一杯羹(開玩笑的~)
+
+好啦最後的最後還是要說 生 日 快 樂。
+By 雨田阿姨`
     };
 
     (function(){
